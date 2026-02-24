@@ -1,38 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_CITIES 100
-#define MAX_LEN 100
-
-void sortCities(char *cities[], int n);
-void freeCities(char *cities[], int n);
-int main() {
-    int n;
-    printf("Enter number of cities: ");
-    scanf("%d", &n);
-    getchar(); // consume newline
-    if (n <= 0 || n > MAX_CITIES) {
-        printf("Invalid number of cities!\n");
-        return 1;
-    }
-    char *cities[MAX_CITIES];
-    for (int i = 0; i < n; i++) {
-        char buffer[MAX_LEN];
-        printf("Enter city %d: ", i + 1);
-        fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = '\0';  
-        cities[i] = (char *)malloc(strlen(buffer) + 1);
-        if (cities[i] == NULL) {
-            printf("Memory allocation failed!\n");
-            return 1;
+#define MAX 100
+void sortcity(char *cities[],int n){
+    char *temp;
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++){
+            if(strcmp(cities[i],cities[j]>0){
+                temp=cities[i];
+                cities[i]=cities[j];
+                cities[j]=temp;
+            }
         }
-        strcpy(cities[i], buffer);
     }
-    sortCities(cities, n);
-    printf("\nCities in alphabetical order:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%s\n", cities[i]);
+}
+void freemem(char *cities[],int n){
+    for(int i=0;i<n;i++){
+        free(cities[i]);
     }
-    freeCities(cities, n);
+}
+int main(){
+    int n;
+    printf("Enter no.of cities\n");
+    scanf("%d", &n);
+    char *cities[n];
+    for(int i=0;i<n;i++){
+        cities[i]=(char *)malloc(MAX*sizeof(char));
+        printf("Enter city %d:",i+1);
+    scanf(%s,cities[i]);
+    }
+    sortcity(cities,n);
+    printf("Cities in alphabatical order\n");
+    for(int i=0;i<n;i++){
+        printf("%s\n",cities[i]);
+    }
+    freemem(cities,n);
     return 0;
 }
